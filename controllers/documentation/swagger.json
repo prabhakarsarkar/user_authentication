@@ -1,0 +1,458 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "user authentication",
+        "description": "user authentication with jwt",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "contact": {
+            "name": "7351904876",
+            "email": "prabhakar19@gmail.com"
+        }
+    },
+    "components": {
+        "securitySchemes": [
+            {
+                "bearerAuth": {
+                    "type": "http",
+                    "description": "access token",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT",
+                    "in": "header"
+                }
+            }
+        ]
+    },
+    "security": {},
+    "servers": [
+        "http://localhost:3001"
+    ],
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for app to signup and users details"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/signup": {
+            "post": {
+                "tags": [
+                    "Signup"
+                ],
+                "summary": "Create new user",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "required": [
+                                "firstName",
+                                "lastName",
+                                "phoneNumber",
+                                "email",
+                                "password",
+                                "gender",
+                                "dateOfBirth",
+                                "country",
+                                "state",
+                                "city"
+                                
+                            ],
+                            "properties": {
+                                "firstName": {
+                                    "type": "string",
+                                    "example": "prabhakar"
+                                },
+                                "lastName":{
+                                    "type": "string",
+                                    "example": "sarkar"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "example": "prabhakar19@navguruku.org"
+                                },
+                                "password":{
+                                    "type": "string",
+                                    "example": "qwerrttt123312"
+                                },
+                                "phoneNumber": {
+                                    "type": "string",
+                                    "example": "7351904876"
+                                },
+                                "dateOfBirth": {
+                                    "type": "string",
+                                    "example": "15/3/1998"
+                                },
+                                "gender": {
+                                    "type": "string",
+                                    "example": "male"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "example": "india"
+                                },
+                                "state": {
+                                    "type": "string",
+                                    "example": "up"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "example": "pilibhit"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/201"
+                        }
+                    },
+                    "409": {
+                        "description": "User already exists",
+                        "schema": {
+                            "$ref": "#/definitions/409"
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/400"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "$ref": "#/definitions/500"
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "summary": "Signin for user",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "description": "Signin details",
+                        "schema": {
+                            "required": [
+                               
+                                "email",
+                                "password"  
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "example": "prabhakar19@navguruku.org"
+                                },
+                                "password":{
+                                    "type": "string",
+                                    "example": "qwerrttt123312"
+                                }
+                               
+                               
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "example": "success"
+                                },
+                                "status": {
+                                    "example": 200
+                                },
+                                "data": {
+                                    "example": {
+                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                                        "userId": "60a8c5b03557df08ea23086d",
+                                        "firstName": "prabhakar",
+                                        "lastName": "sarkar",
+                                        "email": "prabhakar19@@navgurukul.org",
+                                        "dateOfBirth":"15/3/1998",
+                                        "phoneNumber":"7351904876",
+                                        "dialCode":"+91",
+                                        "country":"india",
+                                        "state":"up",
+                                        "city":"pilibhit"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/400"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid username or password",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "$ref": "#/definitions/500"
+                        }
+                    }
+                }
+            }
+        },
+        "/forgetPassword":{
+            "post": {
+                "tags": [
+                    "forgetPassword"
+                ],
+                "summary": "forgetPassword",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "description": "Signin details",
+                        "schema": {
+                            "required": [
+                               
+                                "email",
+                                "password"  
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "example": "prabhakar19@navguruku.org"
+                                },
+                                "password":{
+                                    "type": "string",
+                                    "example": "qwerrttt123312"
+                                }
+                               
+                               
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "example": " forgot password success "
+                                },
+                                "status": {
+                                    "example": 200
+                                },
+                                "data":{
+                                   
+                                    "example": {
+                                        "NewPassword": "eyJhbGciOi"
+                                     
+                                    }
+                                }
+                               
+                            }
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/400"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid username or password",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "$ref": "#/definitions/500"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "security": {
+                    "bearerAuth": {
+                        
+                    }
+                },
+                "tags": [
+                    "user"
+                ],
+                "summary": "get all user data",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "required": true,
+                        "description": "access token",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/201"
+                        }
+                    },
+                    "409": {
+                        "description": "User already exists",
+                        "schema": {
+                            "$ref": "#/definitions/409"
+                        }
+                    },
+                    "400": {
+                        "schema": {
+                            "$ref": "#/definitions/400"
+                        }
+                    },
+                    "500": {
+                        "schema": {
+                            "$ref": "#/definitions/500"
+                        }
+                    }
+                }
+            }
+        }
+        
+    },
+   
+    "definitions": {
+        "201": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Success"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 201
+                }
+            }
+        },
+        "204": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Data not found!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 204
+                },
+                "data": {
+                    "type": "array",
+                    "items": {},
+                    "example": []
+                }
+            }
+        },
+        "400": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Bad Request!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 400
+                }
+            }
+        },
+        "401": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Unauthorized!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 401
+                }
+            }
+        },
+        "404": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Page not found!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 404
+                }
+            }
+        },
+        "409": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Duplicate data!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 409
+                }
+            }
+        },
+        "500": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Internal server error!"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 500
+                }
+            }
+        }
+    }
+}
